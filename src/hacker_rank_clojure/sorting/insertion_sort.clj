@@ -1,12 +1,5 @@
-(ns hacker-rank-clojure.sorting.insertion-sort)
-
-(defn parse-int [string]
-  (Integer. string))
-
-(defn read-values []
-  (do
-    (read-line)
-    (into [] (map parse-int (clojure.string/split (read-line) #" ")))))
+(ns hacker-rank-clojure.sorting.insertion-sort
+  (:require [hacker-rank-clojure.utils :as utils]))
 
 (defn part-one-step [v to-parse parsed]
   (lazy-seq
@@ -21,7 +14,8 @@
 
 (defn run-part-one
   [starting-list]
-  (doall (map (comp println (partial clojure.string/join " ")) (part-one starting-list))))
+  (doseq [step (part-one starting-list)]
+    utils/pretty-print step))
 
 (defn -main
   []
