@@ -10,8 +10,8 @@
    (lazy-seq
      (let [next-item (peek to-parse)]
        (if (or (nil? next-item) (<= next-item v))
-         [(concat to-parse [v] parsed)]
-         (cons (concat to-parse [(peek to-parse)] parsed)
+         [(flatten [to-parse v parsed])]
+         (cons (flatten [to-parse (peek to-parse) parsed])
                (insertion-sort-steps v (pop to-parse) (conj parsed next-item))))))))
 
 ;; https://www.hackerrank.com/challenges/insertionsort2
@@ -21,8 +21,10 @@
          to-be-ordered (drop 2 list)
          acc           []]
     (if (seq to-be-ordered)
-      (recur (conj (into [] (last (insertion-sort-steps to-order))) (first to-be-ordered))
+      (recur (conj (last (doall (insertion-sort-steps to-order))) (first to-be-ordered))
              (rest to-be-ordered)
              (conj acc (concat to-order to-be-ordered))))))
 
 
+(defn my-iterate [n]
+  )
