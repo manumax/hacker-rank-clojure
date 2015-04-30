@@ -10,3 +10,5 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 .nrepl-port
+.idea/workspace.xml
+.idea/tasks.xml
