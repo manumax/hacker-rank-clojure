@@ -1,7 +1,7 @@
 (ns hacker-rank-clojure.sorting.insertion-sort
   (:require [hacker-rank-clojure.utils :as utils]))
 
-(defn part-one-step [v to-parse parsed]
+(defn part-one-steps [v to-parse parsed]
   (lazy-seq
     (let [next-item (peek to-parse)]
       (if (or (nil? next-item) (<= next-item v))
