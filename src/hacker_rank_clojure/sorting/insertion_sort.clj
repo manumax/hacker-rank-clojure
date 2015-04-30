@@ -14,8 +14,7 @@
 
 (defn run-part-one
   [starting-list]
-  (doseq [step (part-one starting-list)]
-    utils/pretty-print step))
+  (doall (map utils/pretty-print (part-one starting-list))))
 
 (defn -main
   []
