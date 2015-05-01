@@ -12,3 +12,5 @@ pom.xml.asc
 .nrepl-port
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/dictionaries
+replstate.xml
