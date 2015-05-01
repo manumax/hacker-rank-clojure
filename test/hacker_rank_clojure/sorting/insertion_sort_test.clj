@@ -16,21 +16,33 @@
   (testing "Should do nothing if given list is already ordered"
     (is (= [2 3 4 6 8] (last (insertion-sort-steps [2 4 6 8 3]))))))
 
-(deftest test-empty-list
+(deftest test-insertion-step-empty-list
   (testing "Should be ok if list is empty"
     (is (= nil (last (insertion-sort-steps []))))))
 
-(deftest test-one-element-list
+(deftest test-insertion-step-one-element-list
   (testing "Should be ok if list has only one item"
     (is (= [1] (last (insertion-sort-steps [1]))))))
 
 ;; https://www.hackerrank.com/challenges/insertionsort2
 
-(comment (deftest test-sample-input-works
-           (testing "Sample Input should work properly"
-             (let [expected [[1 4 3 5 6 2]
-                             [1 3 4 5 6 2]
-                             [1 3 4 5 6 2]
-                             [1 3 4 5 6 2]
-                             [1 2 3 4 5 6]]]
-               (is (= expected (insertion-sort [1 4 3 5 6 2])))))))
+(deftest test-sample-input-works
+  (testing "Sample Input should work properly"
+    (let [expected [[1 4 3 5 6 2]
+                    [1 3 4 5 6 2]
+                    [1 3 4 5 6 2]
+                    [1 3 4 5 6 2]
+                    [1 2 3 4 5 6]]]
+      (is (= expected (insertion-sort [1 4 3 5 6 2]))))))
+
+(deftest test-insertion-sort-empty-list
+  (testing "Calling insertion on an empty list should return nil"
+    (is (= [] (insertion-sort [])))))
+
+(deftest test-insertion-sort-one-element-list
+  (testing "Calling insertion on a list with one elment shoul return the list"
+    (is (= [1] (insertion-sort [1])))))
+
+(deftest test-insertion-sort-two-element-list
+  (testing "Calling insertion on a list with two elments should work propertly"
+    (is (= [[1 2]] (insertion-sort [2 1])))))
