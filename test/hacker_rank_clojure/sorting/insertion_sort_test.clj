@@ -6,23 +6,23 @@
 
 (deftest test-first-step
   (testing "Check first step is ok"
-    (is (= [2 4 6 8 8] (first (insertion-sort-steps [2 4 6 8 3]))))))
+    (is (= [2 4 6 8 8] (first (sort-last-item-steps [2 4 6 8 3]))))))
 
 (deftest test-last-step
   (testing "Check last step is ok"
-    (is (= [2 3 4 6 8] (last (insertion-sort-steps [2 4 6 8 3]))))))
+    (is (= [2 3 4 6 8] (last (sort-last-item-steps [2 4 6 8 3]))))))
 
 (deftest test-ordered-list
   (testing "Should do nothing if given list is already ordered"
-    (is (= [2 3 4 6 8] (last (insertion-sort-steps [2 4 6 8 3]))))))
+    (is (= [2 3 4 6 8] (last (sort-last-item-steps [2 4 6 8 3]))))))
 
 (deftest test-insertion-step-empty-list
   (testing "Should be ok if list is empty"
-    (is (= nil (last (insertion-sort-steps []))))))
+    (is (= nil (last (sort-last-item-steps []))))))
 
 (deftest test-insertion-step-one-element-list
   (testing "Should be ok if list has only one item"
-    (is (= [1] (last (insertion-sort-steps [1]))))))
+    (is (= [1] (last (sort-last-item-steps [1]))))))
 
 ;; https://www.hackerrank.com/challenges/insertionsort2
 

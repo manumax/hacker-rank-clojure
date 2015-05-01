@@ -2,43 +2,46 @@
 
 ;; https://www.hackerrank.com/challenges/insertionsort1
 
-(defn lazy-insertion-sort-steps
-  ([starting-list]
-   (when (seq starting-list)
-     (lazy-insertion-sort-steps (peek starting-list) (pop starting-list) '())))
-  ([v to-parse parsed]
-   (lazy-seq
-     (let [next-item (peek to-parse)]
-       (if (or (nil? next-item) (<= next-item v))
-         [(flatten [to-parse v parsed])]
-         (cons (flatten [to-parse (peek to-parse) parsed])
-               (lazy-insertion-sort-steps v (pop to-parse) (conj parsed next-item))))))))
+(defn- sort-last-item-step [to-parse pivot parsed]
+  (lazy-seq
+    (let [next-item (peek to-parse)]
+      (if (or (nil? next-item) (<= next-item pivot))
+        [(into [] (flatten [to-parse pivot parsed]))]
+        (cons (into [] (flatten [to-parse (peek to-parse) parsed]))
+              (sort-last-item-step (pop to-parse) pivot (conj parsed next-item)))))))
 
-
-(defn insertion-sort-steps
+(defn sort-last-item-steps
   [to-order-list]
   (if-let [pivot (peek to-order-list)]
-    (loop [to-parse (pop to-order-list)
-           parsed   '()
-           acc      []]
-      (let [next-item (peek to-parse)]
-        (if (or (nil? next-item) (<= next-item pivot))
-          (conj acc (into [] (flatten [to-parse pivot parsed])))
-          (recur (pop to-parse)
-                 (conj parsed next-item)
-                 (conj acc (into [] (flatten [to-parse (peek to-parse) parsed])))))))))
+    (sort-last-item-step (pop to-order-list) pivot '())))
 
 ;; https://www.hackerrank.com/challenges/insertionsort2
+
+(defn- fast-sort-last-item-step [to-order]
+  (let [pivot (peek to-order)
+        xs    (pop to-order)
+        smaller? #(< % pivot)]
+    (into [] (concat (filter smaller? xs)
+                     [pivot]
+                     (remove smaller? xs)))))
+
+(defn- insertion-sort-step [to-order to-be-ordered]
+  (lazy-seq
+    (let [last-insertion-step (fast-sort-last-item-step to-order)]
+      (if (not (seq to-be-ordered))
+        [last-insertion-step]
+        (cons (into last-insertion-step to-be-ordered)
+              (insertion-sort-step (conj last-insertion-step (first to-be-ordered))
+                                   (rest to-be-ordered)))))))
 
 (defn insertion-sort [to-order-list]
   (if (<= (count to-order-list) 1)
     to-order-list
-    (loop [to-order      (into [] (take 2 to-order-list))
-           to-be-ordered (into [] (drop 2 to-order-list))
-           acc           []]
-      (let [last-insertion-step (last (insertion-sort-steps to-order))]
-        (if (not (seq to-be-ordered))
-          (conj acc last-insertion-step)
-          (recur (conj last-insertion-step (first to-be-ordered))
-                 (rest to-be-ordered)
-                 (conj acc (into last-insertion-step to-be-ordered))))))))
+    (insertion-sort-step (into [] (take 2 to-order-list))
+                         (into [] (drop 2 to-order-list)))))
+
+(defn -main
+  []
+  (let [random-list (take 100 (repeatedly #(rand-int 100)))]
+    (time (doseq [step (insertion-sort random-list)]
+            (println step)))))
