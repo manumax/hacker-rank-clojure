@@ -13,3 +13,15 @@
     (if (= 0 nx)
       x
       (recur nx ny))))
+
+;; Fibonacci Numbers
+;; (https://www.hackerrank.com/challenges/functional-programming-warmups-in-recursion---fibonacci-numbers)
+
+(defn- fibonacci-recur [n]
+  (cond
+    (= n 1) 0
+    (= n 2) 1
+    :otherwise (+ (fibonacci-recur (- n 1))
+                  (fibonacci-recur (- n 2)))))
+
+(def fibonacci (memoize fibonacci-recur))
