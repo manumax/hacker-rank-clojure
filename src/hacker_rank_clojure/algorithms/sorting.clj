@@ -1,4 +1,4 @@
-(ns hacker-rank-clojure.algorithms.sorting.insertion-sort)
+(ns hacker-rank-clojure.algorithms.sorting)
 
 ;; https://www.hackerrank.com/challenges/insertionsort1
 

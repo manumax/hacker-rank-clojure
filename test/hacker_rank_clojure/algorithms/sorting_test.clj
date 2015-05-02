@@ -1,6 +1,6 @@
-(ns hacker-rank-clojure.algorithms.sorting.insertion-sort-test
+(ns hacker-rank-clojure.algorithms.sorting_test
   (:require [clojure.test :refer :all]
-            [hacker-rank-clojure.algorithms.sorting.insertion-sort :refer :all]))
+            [hacker-rank-clojure.algorithms.sorting :refer :all]))
 
 ;; https://www.hackerrank.com/challenges/insertionsort1
 
